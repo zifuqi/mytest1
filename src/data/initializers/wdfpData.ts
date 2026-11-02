@@ -12,6 +12,7 @@ import { ensureSchemaColumn } from "../schema";
 import { initializeServerNewsSchemaSync } from "../schema/server-news";
 import { initializeServerGiftsSchemaSync } from "../schema/server-gifts";
 import { initializePlayerFollowsSchemaSync } from "../schema/player-follows";
+import { initializePublishedPartiesSchemaSync } from "../schema/published-parties";
 import { initializeRankingRewardClaimsSchemaSync } from "../schema/ranking-reward-claims";
 import { pruneSpecialEventPartyGroupsSync } from "../../lib/party-group-persistence";
 import { getRealNow } from "../../runtime/time/game-time";
@@ -172,6 +173,8 @@ export default function init(
         time_offset INTEGER DEFAULT NULL,
         FOREIGN KEY (account_id) REFERENCES accounts (id) ON DELETE CASCADE
     )`).run();
+
+    initializePublishedPartiesSchemaSync(database)
 
     // migration: add tutorial_gacha_character_id to existing tables
     ensureSchemaColumn(database, "players.tutorial_gacha_character_id")

@@ -9,7 +9,7 @@ import type { ContentSnapshot } from "../../content/runtime/content-snapshot"
 import { getContentSnapshot } from "../../content/runtime/content-snapshot"
 import { generateDataHeaders } from "../../utils"
 import {
-    getCdnVersionInfo,
+    usbVersionInfo,
     sendAssetRouteError,
     type AssetRouteErrorLogger,
 } from "./asset"
@@ -76,7 +76,7 @@ const routes = async (fastify: FastifyInstance, options: CnAssetInTitleRouteOpti
         try {
             return reply.type("application/x-msgpack").send({
                 data_headers: generateDataHeaders(),
-                data: getCdnVersionInfo(provider.baseUrl, contentSnapshot),
+                data: usbVersionInfo(request, provider.baseUrl, contentSnapshot),
             })
         } catch (error) {
             return sendAssetRouteError(

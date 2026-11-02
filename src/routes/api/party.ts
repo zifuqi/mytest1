@@ -1,3 +1,5 @@
+import { parsePublishedBattleParty, LOCAL_PARTY_CODE_PATTERN } from "../../lib/party-share-codec";
+import { publishPartySync, getPublishedPartySync } from "../../data/domains/publishedParty";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getPlayerSync, updatePlayerSync } from "../../data/domains/player"
 import { getSession } from "../../data/domains/session"
@@ -415,46 +417,58 @@ function summarizePartyEditRequest(body: Partial<EditBody>, viewerId: unknown) {
 */
 interface PublishBody {
     party_name: string,
-    battle_party: {
-
-    },
+    battle_party: unknown,
     viewer_id: number
 }
 
 const routes = async (fastify: FastifyInstance) => {
-    fastify.post("/publish", async (request: FastifyRequest, reply: FastifyReply) => {
-        const body = request.body as PublishBody
-
-        const viewerId = body.viewer_id
-        if (!viewerId || isNaN(viewerId)) return reply.status(400).send({
-            "error": "Bad Request",
-            "message": "Invalid request body."
-        })
-
-        const viewerIdSession = await getSession(viewerId.toString())
-        if (!viewerIdSession) return reply.status(400).send({
-            "error": "Bad Request",
-            "message": "Invalid viewer id."
-        })
-
-        // get player
-        const playerId = resolvePlayerIdSync(viewerIdSession.accountId)!
-
-        if (playerId === null) return reply.status(500).send({
-            "error": "Internal Server Error",
-            "message": "No players bound to account."
-        })
-
+    // Real same-server share codes, stored as immutable snapshots in SQLite.
+    // This deliberately does not change /party/edit or player inventories.
+    const partyCodeResponse = (reply: FastifyReply, viewerId: number, data: unknown, resultCode: number = 1) => {
         reply.header("content-type", "application/x-msgpack")
         return reply.status(200).send({
-            "data_headers": generateDataHeaders({
-                viewer_id: viewerId
-            }),
-            "data": {
-                "party_code": "https://www.howLongCanThisBe?=+-.comhttps://www.howLongCanThisBe?=+-.comhttps://www.howLongCanThisBe?=+-.com"
-            }
+            data_headers: generateDataHeaders({ viewer_id: viewerId, result_code: resultCode }),
+            data,
         })
+    }
+    fastify.post("/publish", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as Partial<PublishBody> | undefined
+        const viewerId = body?.viewer_id
+        if (!Number.isSafeInteger(viewerId) || !viewerId || viewerId <= 0) {
+            return reply.status(400).send({ error: "Bad Request", message: "Invalid viewer id." })
+        }
+        const session = await getSession(String(viewerId))
+        if (!session) return reply.status(400).send({ error: "Bad Request", message: "Invalid viewer id." })
+        const playerId = resolvePlayerIdSync(session.accountId)
+        if (playerId === null) return reply.status(400).send({ error: "Bad Request", message: "No player for account." })
+        const partyName = body?.party_name
+        const snapshot = parsePublishedBattleParty(body?.battle_party)
+        if (typeof partyName !== "string" || partyName.length > 100 || !snapshot) {
+            return reply.status(400).send({ error: "Bad Request", message: "Invalid published party." })
+        }
+        const code = publishPartySync(playerId, partyName, snapshot)
+        return partyCodeResponse(reply, viewerId, { party_code: code })
+    })
 
+    fastify.post("/refer", async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request.body as { viewer_id?: number, party_code?: string } | undefined
+        const viewerId = body?.viewer_id
+        if (!Number.isSafeInteger(viewerId) || !viewerId || viewerId <= 0) {
+            return reply.status(400).send({ error: "Bad Request", message: "Invalid viewer id." })
+        }
+        const session = await getSession(String(viewerId))
+        if (!session) return reply.status(400).send({ error: "Bad Request", message: "Invalid viewer id." })
+        if (resolvePlayerIdSync(session.accountId) === null) {
+            return reply.status(400).send({ error: "Bad Request", message: "No player for account." })
+        }
+        const code = typeof body?.party_code === "string" ? body.party_code.trim().toUpperCase() : ""
+        if (!LOCAL_PARTY_CODE_PATTERN.test(code)) return partyCodeResponse(reply, viewerId, {}, 3404)
+        const published = getPublishedPartySync(code)
+        if (!published) return partyCodeResponse(reply, viewerId, {}, 3404)
+        return partyCodeResponse(reply, viewerId, {
+            party_name: published.partyName,
+            battle_party: published.battleParty,
+        })
     })
 
     fastify.post("/edit", async (request: FastifyRequest, reply: FastifyReply) => {

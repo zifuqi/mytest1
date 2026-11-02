@@ -1,3 +1,4 @@
+import { installManagementAuth } from "./lib/management-auth";
 import Fastify, { FastifyRequest } from "fastify";
 import { ContentTypeParserDoneFunction } from "fastify/types/content-type-parser";
 import { unpack } from "msgpackr";
@@ -136,6 +137,7 @@ fastify.addHook("onRequest", async (request, reply) => {
     }
 });
 
+installManagementAuth(fastify);
 registerCnMsgpackOnSend(fastify);
 registerRuntimeHealthRoute(fastify, () => runtimeCoordinator.getHealthSnapshot());
 installTakeoverUdidGuard(fastify);

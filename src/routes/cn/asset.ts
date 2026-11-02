@@ -1,3 +1,5 @@
+import fs from "node:fs"
+import { planUsbOverlay } from "./usb-overlay-plan"
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import path from "node:path"
 import {
@@ -174,6 +176,45 @@ function sendPlannerError(
     })
 }
 
+// WF USB CDN v1. Opt-in only; normal routes remain unchanged without the plan.
+interface UsbArchive { name: string; size: number; sha256: string }
+interface UsbPlan {
+    format: string; version: string; baseUrl: string; installedBytes: number;
+    fileCount: number; archives: UsbArchive[]; clientIp: string;
+}
+function loadUsbPlan(request: FastifyRequest, targetVersion: string): UsbPlan | null {
+    const filename = path.resolve(__dirname, "../../../wf-usb-plan.json")
+    if (!fs.existsSync(filename)) return null
+    const p: UsbPlan = JSON.parse(fs.readFileSync(filename, "utf8"))
+    if (!p.clientIp) throw new Error("USB client scope is required")
+    const ip = request.ip.replace(/^::ffff:/, "")
+    if (p.clientIp !== "*" && p.clientIp !== ip) return null
+    const device = headerValue(request, "device")?.toLowerCase()
+    if (device && device !== "2" && device !== "android") return null
+    if (!isValidAssetVersion(targetVersion) || p.version !== "1.4.54"
+        || p.format !== "wf-usb-cdn-v1" || p.baseUrl !== "http://127.0.0.1:18954/patch/cn"
+        || !Number.isSafeInteger(p.installedBytes) || p.installedBytes <= 0
+        || !Array.isArray(p.archives) || p.archives.length === 0 || p.archives.length > 10000) {
+        throw new Error("USB plan does not match this server content snapshot")
+    }
+    const names = new Set<string>()
+    for (const a of p.archives) {
+        if (!/^chunk-[0-9]{4,5}\.zip$/.test(a.name) || names.has(a.name)
+            || !Number.isSafeInteger(a.size) || a.size <= 0 || !/^[0-9a-f]{64}$/.test(a.sha256)) {
+            throw new Error("Invalid USB archive")
+        }
+        names.add(a.name)
+    }
+    return p
+}
+export function usbVersionInfo(request: FastifyRequest, base: string, snapshot: ContentSnapshot) {
+    const usb = loadUsbPlan(request, snapshot.cdn.targetVersion)
+    return usb && snapshot.cdn.targetVersion === usb.version ? {
+        base_url: `${usb.baseUrl}/`, files_list: `${usb.baseUrl}/recovery/empty.csv`,
+        total_size: usb.installedBytes, delayed_assets_size: 0,
+    } : getCdnVersionInfo(base, snapshot)
+}
+
 const routes = async (fastify: FastifyInstance, options: CnAssetRouteOptions) => {
     const snapshot = options.getSnapshot ?? getContentSnapshot
     const env = options.env ?? process.env
@@ -250,7 +291,7 @@ const routes = async (fastify: FastifyInstance, options: CnAssetRouteOptions) =>
             }
             return reply.type("application/json").send({
                 data_headers: generateDataHeaders(),
-                data: getCdnVersionInfo(provider.baseUrl, contentSnapshot),
+                data: usbVersionInfo(request, provider.baseUrl, contentSnapshot),
             })
         } catch (error) {
             return sendAssetRouteError(request, reply, "ASSET_SERVICE_ERROR", error, options.logError)
@@ -347,6 +388,14 @@ const routes = async (fastify: FastifyInstance, options: CnAssetRouteOptions) =>
                     })
                 }
                 catalog = state.catalog
+            }
+            const usb = loadUsbPlan(request, catalog.targetVersion)
+            if (usb) {
+                const data = planUsbOverlay(catalog, usb, plannerCurrentVersion, provider.baseUrl)
+                return reply.send({
+                    data_headers: generateDataHeaders({ asset_update: plannerCurrentVersion !== catalog.targetVersion }),
+                    data,
+                })
             }
             const plan = planCdnUpdate(catalog, {
                 currentVersion: plannerCurrentVersion,
