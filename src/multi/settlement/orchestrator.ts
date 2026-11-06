@@ -59,6 +59,7 @@ import {
 import { withEntryItemInventoryWithinTransactionSync } from "../../lib/quest/entry-item-inventory"
 import { createMultiSettlementValuePlan } from "./value-plan"
 import { writeMultiQuestProgressWithinTransactionSync } from "./quest-progress-write"
+import { recordClearedQuestPartySync } from "../../lib/quest/recent-party"
 
 export interface MultiplayerSettlementPreparationInput {
     readonly body: MultiFinishBody
@@ -230,6 +231,10 @@ export function runMultiplayerSettlementOrchestration(input: MultiplayerSettleme
             { boostPoint: player.boostPoint, bossBoostPoint: player.bossBoostPoint },
         )
         if (!freshValidation.ok) throw new ActiveQuestSettlementConflictError()
+        if (questAccomplished) recordClearedQuestPartySync({
+            playerId: input.playerId, playerName: player.name, category: questCategory, questId,
+            playId: storedQuest.playId, statistics: freshValidation.statistics,
+        })
         const questProgress = getPlayerSingleQuestProgressSync(input.playerId, questCategory, questId)
         const questPreviouslyCompleted = questProgress?.finished === true
         const hostFinished = resolveHostFinished({

@@ -32,6 +32,7 @@ import { createSingleSettlementValuePlan } from "./single-settlement-value-plan"
 import { createEventSettlementDescriptor } from "./event-settlement-descriptor"
 import { settleSingleBuiltInEvent } from "./single-event-settlement"
 import { resolveRushFinalOperationOverrideForSettings } from "../../rush-final-operation-policy"
+import { recordClearedQuestPartySync } from "../recent-party"
 
 export function executeSingleSettlementWrites(
     input: SingleSettlementWritesInput,
@@ -44,6 +45,10 @@ export function executeSingleSettlementWrites(
         questAccomplished, questProgress, questPreviouslyCompleted } = finishCtx
     const isScoreAttackEvent = questCategory === QuestCategory.SCORE_ATTACK_EVENT
     const party = body.statistics.party
+    if (questAccomplished) recordClearedQuestPartySync({
+        playerId, playerName: settlementPlayer.name, category: questCategory, questId,
+        playId: settlementActiveQuest.playId, statistics: body.statistics,
+    })
     const leaderId = party.characters[0]?.id
     const partyCharacterIds: number[] = []
     for (const value of [...party.characters, ...party.unison_characters]) {

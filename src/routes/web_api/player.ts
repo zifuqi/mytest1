@@ -1,3 +1,4 @@
+import { registerPlayerRankEditorRoutes } from "./player-rank-editor"
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { validatePlayerField, isValidCharacterId, isValidItemId, MAX_INT } from "./validation";
 import { wantsJson } from "./http";
@@ -41,6 +42,7 @@ interface GetPlayersQuery {
 const defaultPerPage = 25
 
 const routes = async (fastify: FastifyInstance) => {
+    registerPlayerRankEditorRoutes(fastify)
     fastify.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
         const { page, perPage } = request.query as GetPlayersQuery
         const parsedPage = page === undefined ? 0 : Number.parseInt(page)

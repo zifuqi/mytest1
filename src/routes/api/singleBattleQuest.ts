@@ -126,7 +126,7 @@ const routes = async (fastify: FastifyInstance, options: SingleBattleQuestRouteO
     const dailyResetHour = options.dailyResetHour ?? 5
     const challengePointMap = getEventChallengePointMap()
 
-    fastify.post("/finish", async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.post("/finish", { bodyLimit: 16777216 }, async (request: FastifyRequest, reply: FastifyReply) => {
         const validationResult = validateSingleFinishRequest(request.body)
         if (!validationResult.ok) return reply.status(400).send({
             "error": "Bad Request", "message": validationResult.message,

@@ -1,0 +1,16 @@
+.wf-rank-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: center; }
+.wf-rank-summary strong { display: block; font-size: 18px; font-variant-numeric: tabular-nums; }
+.wf-rank-summary .wf-rank-number { font-size: 30px; }
+.wf-rank-caption { color: var(--ant-color-text-secondary, #637493); font-size: 12px; line-height: 1.7; }
+.wf-rank-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 22px; }
+.wf-rank-form label > span { display: block; margin-bottom: 7px; font-weight: 600; }
+.wf-rank-form .ant-input-number { width: 100%; }
+.wf-rank-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+.wf-rank-table-search { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+.wf-rank-table-search .ant-input-number { width: 150px; }
+@media (max-width: 600px) {
+    .wf-rank-summary { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .wf-rank-summary > :last-child { grid-column: 1 / -1; }
+    .wf-rank-form { grid-template-columns: 1fr; }
+    .wf-rank-actions > .ant-space { width: 100%; justify-content: flex-end; }
+}

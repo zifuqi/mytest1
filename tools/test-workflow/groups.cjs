@@ -112,6 +112,7 @@ const TEST_GROUPS = Object.freeze({
             "tools/quest_sampled_logging.test.cjs",
             "tools/quest_session_identity.test.cjs",
             "tools/quest_recent_other_player_party_route.test.cjs",
+            "tools/recent_quest_party_settlement.test.cjs",
             "tools/single_continue_request.test.cjs",
             "tools/single_continue_idempotency.test.cjs",
             "tools/single_continue_lifecycle.test.cjs",

@@ -15,6 +15,10 @@ const HUB_AUTHENTICATION_GROUPS = [
 
 const SOURCE_RULES = [
     {
+        pattern: /^(?:src\/data\/(?:domains\/recent-quest-party|schema\/recent-quest-parties)|src\/lib\/quest\/recent-party(?:-protocol)?)\.ts$/,
+        groups: ["quick:quest", "quick:protocol", "integration:quest", "integration:database"],
+    },
+    {
         // 玩家存档 schema 的全部落点:新增/修改表必经这些文件,改动时强制
         // 运行存档套件(2026-09-28 漏登记存档注册表的复盘机制)。
         pattern: /^(?:src\/data\/(?:schema|player-save|initializers)\/|src\/data\/(?:index|db)\.ts|assets\/server_release_contract\.json$)/,

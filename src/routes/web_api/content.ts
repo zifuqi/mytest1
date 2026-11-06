@@ -1,3 +1,5 @@
+// wf-admin-avatar-overlay-v1
+import { getAvatarOverlay, type AvatarSnapshot } from "../../content/cdn/admin-avatar-overlay"
 import fs from "node:fs"
 import path from "node:path"
 import zlib from "node:zlib"
@@ -18,6 +20,7 @@ import { resolveCnCdnRoot } from "../../content/paths"
 import { resolveRuntimeDataPaths } from "../../runtime/data-paths"
 
 export interface ContentRoutesOptions {
+    readonly getAvatarSnapshot?: () => AvatarSnapshot | null
     /** Resolved `<CDN_DIR>/cn` root; null disables archive lookups. */
     readonly getCdnRoot?: () => string | null
     readonly getRepository?: () => ReadonlyContentRepository
@@ -109,6 +112,8 @@ function parseEvolveParameter(request: FastifyRequest): 0 | 1 | null {
 const routes = async (fastify: FastifyInstance, options: ContentRoutesOptions = {}) => {
     const getCdnRoot = options.getCdnRoot ?? defaultGetCdnRoot
     const getRepository = options.getRepository ?? defaultGetRepository
+    const getAvatarSnapshot = options.getAvatarSnapshot
+        ?? (options.getRepository ? () => null : getContentSnapshot)
 
     // 注册期清扫一次物化缓存(坏文件删除, 请求时重物化); 目录缺失等异常静默跳过
     try {
@@ -144,14 +149,15 @@ const routes = async (fastify: FastifyInstance, options: ContentRoutesOptions = 
 
         // 物化缓存: 首次从归档取出后落盘 <DATA_DIR>/asset-provider/character-avatar,
         // 之后静态直出零解压 (维护者 2026-09-30 定稿的管线物化轻量形态)。
+        const avatarOverlay = getAvatarOverlay(cdnRoot, getAvatarSnapshot())
         const cachePath = path.join(
             options.assetProviderDir
                 ?? resolveRuntimeDataPaths().assetProviderDir,
             "character-avatar",
-            `${stringId}_${evolve}.png`,
+            `${stringId}_${evolve}${avatarOverlay ? "_" + avatarOverlay.cacheKey : ""}.png`,
         )
         if (fs.existsSync(cachePath)) {
-            reply.header("cache-control", "public, max-age=86400")
+            reply.header("cache-control", avatarOverlay ? "no-cache" : "public, max-age=86400")
             return reply.type("image/png").send(fs.createReadStream(cachePath))
         }
 
@@ -161,9 +167,14 @@ const routes = async (fastify: FastifyInstance, options: ContentRoutesOptions = 
         const index = getMediumArchiveIndex(path.join(cdnRoot, "archive-medium-full"))
         const primary = characterAvatarPath(stringId, evolve)
         const fallback = characterFullShotPath(stringId, evolve)
-        let payload = await index.read(`production/medium_upload/${hashedAssetPath(primary)}`)
+        const readAvatar = async (logicalPath: string): Promise<Buffer | null> => {
+            const physicalPath = `production/medium_upload/${hashedAssetPath(logicalPath)}`
+            const patched = avatarOverlay ? await avatarOverlay.index.read(physicalPath) : null
+            return patched ?? await index.read(physicalPath)
+        }
+        let payload = await readAvatar(primary)
         if (payload === null) {
-            payload = await index.read(`production/medium_upload/${hashedAssetPath(fallback)}`)
+            payload = await readAvatar(fallback)
         }
         if (payload === null) {
             return reply.status(404).send({ error: "avatar unavailable" })
@@ -179,7 +190,7 @@ const routes = async (fastify: FastifyInstance, options: ContentRoutesOptions = 
         } catch {
             // 落盘失败不阻塞响应(下次请求重试物化)
         }
-        reply.header("cache-control", "public, max-age=86400")
+        reply.header("cache-control", avatarOverlay ? "no-cache" : "public, max-age=86400")
         return reply.type("image/png").send(browserPng)
 
     })

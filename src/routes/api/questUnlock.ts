@@ -11,6 +11,7 @@ import { mergeCommonResponseFragments } from "../../lib/common-response/merge"
 import { getMailArrivedSync } from "../../lib/mail-notification";
 import { getDb } from "../../data/db";
 import { withInventoryBatchContextWithinTransactionSync } from "../../lib/inventory";
+import { getRecentQuestPartiesSync } from "../../data/domains/recent-quest-party";
 
 interface UnlockBody {
     category: number
@@ -30,17 +31,18 @@ type UnlockTransactionResult =
     | { ok: false, message: string }
 
 const routes = async (fastify: FastifyInstance) => {
-    // CN 1.8.1 QuestGetRecentOtherPlayerPartyRealRemote：读取其他玩家在本 quest 的
-    // 近期队伍。本服没有跨玩家队伍历史存储，返回客户端契约内的空投影，不虚构数据。
+    // Server-wide latest successful party per player, using the CN 1.8.1 wire shape.
     fastify.post("/get_recent_other_player_party", async (request: FastifyRequest, reply: FastifyReply) => {
-        const body = request.body as GetRecentOtherPlayerPartyBody
-        const viewerId = body.viewer_id
-        if (isNaN(viewerId) || isNaN(body.category) || isNaN(body.quest_id)) {
+        const body = request.body as GetRecentOtherPlayerPartyBody | null | undefined
+        if (!body || ![body.viewer_id, body.category, body.quest_id].every(
+            value => Number.isSafeInteger(value) && value > 0,
+        )) {
             return reply.status(400).send({
                 "error": "Bad Request",
                 "message": "Invalid request body."
             })
         }
+        const viewerId = body.viewer_id
 
         const session = await getSession(viewerId.toString())
         if (!session) {
@@ -56,7 +58,7 @@ const routes = async (fastify: FastifyInstance) => {
                 viewer_id: viewerId
             }),
             "data": {
-                "recent_other_player_party": [],
+                "recent_other_player_party": getRecentQuestPartiesSync(body.category, body.quest_id),
             }
         })
     })

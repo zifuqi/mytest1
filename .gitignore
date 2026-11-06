@@ -31,3 +31,5 @@ tmp/
 
 # local implementation plans (kept untracked on purpose)
 docs/plans/
+
+.*

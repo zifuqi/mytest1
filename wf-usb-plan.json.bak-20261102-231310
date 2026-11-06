@@ -1,0 +1,520 @@
+{
+  "format": "wf-usb-cdn-v1",
+  "version": "1.4.54",
+  "baseUrl": "http://127.0.0.1:18954/patch/cn",
+  "installedBytes": 10177212635,
+  "fileCount": 137820,
+  "archives": [
+    {
+      "name": "chunk-0001.zip",
+      "size": 100580333,
+      "sha256": "52c752316fc4182a727523e1dcadf289f013733c8f789c99a757710cafe19c4b"
+    },
+    {
+      "name": "chunk-0002.zip",
+      "size": 100790691,
+      "sha256": "5e64ccb483a848c762f829a3257d8635bfe6c4124ee1f6ee31a43c0e281a59b7"
+    },
+    {
+      "name": "chunk-0003.zip",
+      "size": 100824387,
+      "sha256": "6be5623be836afceb7818b2192f02586594e607b3f3d651d6f987524bdf33366"
+    },
+    {
+      "name": "chunk-0004.zip",
+      "size": 99385784,
+      "sha256": "4a45641ac0a0268e34a9ca3274ae8eef73c6d8dc8a1e3ae2402fe882021af370"
+    },
+    {
+      "name": "chunk-0005.zip",
+      "size": 100533380,
+      "sha256": "566e4cd548a3f324a559be70702b0a6c6a9e5f8bf9d5f2df7790cf0375c991d1"
+    },
+    {
+      "name": "chunk-0006.zip",
+      "size": 99165274,
+      "sha256": "bcd77f2acb5b31be456088d4994a8219b343c0a25228c7ba92e297f29bf41761"
+    },
+    {
+      "name": "chunk-0007.zip",
+      "size": 100385817,
+      "sha256": "a99ec1d949b9ccfbc19ee6016affc487e670c5df7c56d882e5961904460e0e3a"
+    },
+    {
+      "name": "chunk-0008.zip",
+      "size": 100783066,
+      "sha256": "102659ac14d613f4d5f2e7c4e725252d270de51eefcce8f238583281fb64686d"
+    },
+    {
+      "name": "chunk-0009.zip",
+      "size": 100735055,
+      "sha256": "e027c492643ebd1dadefe04fcce1da9ebeb989dfbda4f1ae4accb05fd024a4cf"
+    },
+    {
+      "name": "chunk-0010.zip",
+      "size": 100650283,
+      "sha256": "d96a7a113a829df5f0f5869b0a6d1b3f1b3f0a798f9462915019df8d19c095e7"
+    },
+    {
+      "name": "chunk-0011.zip",
+      "size": 100514748,
+      "sha256": "7269ec48f9290b21a83ca21b4f77b2d8b1b8d3be4efc3690f1b14875efc5b7b0"
+    },
+    {
+      "name": "chunk-0012.zip",
+      "size": 99150068,
+      "sha256": "82f2aec608526398aefa4c3d28ff17e15d3cfe88e64fa0650d8286521837b806"
+    },
+    {
+      "name": "chunk-0013.zip",
+      "size": 100775612,
+      "sha256": "4ae099cfd6aad235253686f63e97d556f1321849443bb9be14dd11aff994f309"
+    },
+    {
+      "name": "chunk-0014.zip",
+      "size": 100770988,
+      "sha256": "4ea67fe7e3e5eae2df6699bc44b61702b35557c122bdcfb279cd658262d63d94"
+    },
+    {
+      "name": "chunk-0015.zip",
+      "size": 100519716,
+      "sha256": "29bc8dfeacc315fc33d91ceedcd094606278e9a207205aeafd581012b9df0734"
+    },
+    {
+      "name": "chunk-0016.zip",
+      "size": 100780775,
+      "sha256": "86d430ae6b3a74495b838708437da90cb3d73e90de4cea8e673e82fdd75db057"
+    },
+    {
+      "name": "chunk-0017.zip",
+      "size": 100656887,
+      "sha256": "a957a834320c62ee648180d26ed77929f589f66648b882787ee89ebdeee1ecb8"
+    },
+    {
+      "name": "chunk-0018.zip",
+      "size": 100750308,
+      "sha256": "fe557b29b992887bfdc925d9ea23a147595996c4a48103a3a28798a615c33079"
+    },
+    {
+      "name": "chunk-0019.zip",
+      "size": 100190560,
+      "sha256": "2a02cd3ef7eed51a4b27f7c43dc4251362bcefea799fba571e75b7136cb1ea5c"
+    },
+    {
+      "name": "chunk-0020.zip",
+      "size": 100774426,
+      "sha256": "0ab91e59ee6691cf4cc633e423811793d92de00a9a8af6023884c01d2252b472"
+    },
+    {
+      "name": "chunk-0021.zip",
+      "size": 99553690,
+      "sha256": "1e44c1ef65b56fd8ef96021c954914455c0b5f02203278403687ae6c2a0f13c3"
+    },
+    {
+      "name": "chunk-0022.zip",
+      "size": 100723100,
+      "sha256": "b525d8cf38f33de8ffe3a9372005d83cbb1e4dca75cb2d37532546bf7e3ed4c3"
+    },
+    {
+      "name": "chunk-0023.zip",
+      "size": 100512604,
+      "sha256": "9fd5253dcfd55db85267cf3ea0cf7f1fb3a78aa980b529ce50e51512abdd1b0c"
+    },
+    {
+      "name": "chunk-0024.zip",
+      "size": 99888772,
+      "sha256": "cbee0107cf4c90bb98d58c63bc224fbe89d747653d79e8aa5579247bc82e6270"
+    },
+    {
+      "name": "chunk-0025.zip",
+      "size": 100792946,
+      "sha256": "cbb275ed9f160146e1d468746ba41303dc6d0d074011f281a6178366e66083d0"
+    },
+    {
+      "name": "chunk-0026.zip",
+      "size": 100751718,
+      "sha256": "b1bfe18224b2e5be24ad7c2e20b6a52b0c11baacaec0dbeb6326258b50e5a243"
+    },
+    {
+      "name": "chunk-0027.zip",
+      "size": 100597959,
+      "sha256": "3433bb248ee823661f7b2f9cadd4a7df647f6716161339d09117e3a649ce2ead"
+    },
+    {
+      "name": "chunk-0028.zip",
+      "size": 100521717,
+      "sha256": "32d34ff076f24931c88baed3853972414f3b56cf4b222b33d3a17e259afcb867"
+    },
+    {
+      "name": "chunk-0029.zip",
+      "size": 99696452,
+      "sha256": "b1ae756cdddcec12220383687e6526c51719eeadfe5b496d7d1c775067f78000"
+    },
+    {
+      "name": "chunk-0030.zip",
+      "size": 100799659,
+      "sha256": "2281b8cfbaee95c9ed97e7005f8091ae43e065f1d56cafe308cd7ce75059d019"
+    },
+    {
+      "name": "chunk-0031.zip",
+      "size": 99987335,
+      "sha256": "2243930f049912aef3e48b7c8c27a3b4057e0e655edf3c64e9be1e89ffef58db"
+    },
+    {
+      "name": "chunk-0032.zip",
+      "size": 100718884,
+      "sha256": "7397f6348388e8482b4bd126993d8c0be29afe5503688d5460e19d3435dacfc2"
+    },
+    {
+      "name": "chunk-0033.zip",
+      "size": 100560876,
+      "sha256": "442fb44cb817af5cf15013459825e5b0c8d7f34fdf48a7ea5f18f2dd0dd616fa"
+    },
+    {
+      "name": "chunk-0034.zip",
+      "size": 100724659,
+      "sha256": "773a8a368515f306bf18c9f80541834b88087a1fdd94f3fbaa59a40d8af47f48"
+    },
+    {
+      "name": "chunk-0035.zip",
+      "size": 100409067,
+      "sha256": "d2b1c385f6d73ae7693769b3135655e5e8fe8602473f189661db813eb9a7a023"
+    },
+    {
+      "name": "chunk-0036.zip",
+      "size": 100129081,
+      "sha256": "bdd0e1b966f8ba4868bf4efc6769134b215e7606883ff88cc9ed5756b28abecf"
+    },
+    {
+      "name": "chunk-0037.zip",
+      "size": 100911899,
+      "sha256": "2c425f5147455580c1f2a2f2049f4622497560034ca694ab3080cd13e8ad4a93"
+    },
+    {
+      "name": "chunk-0038.zip",
+      "size": 100961476,
+      "sha256": "23e237df2d283d82e9e024a0b13a6f3c40b67bdad1d676269ae9cc3af5e7f856"
+    },
+    {
+      "name": "chunk-0039.zip",
+      "size": 100864793,
+      "sha256": "cf53ff9de3a3ec6070d2cd399dedea6694b6fa441b78d5f0580418f8b03d38d5"
+    },
+    {
+      "name": "chunk-0040.zip",
+      "size": 100661031,
+      "sha256": "109d75c42a415789dbc5ede5e290c377742b1d5d863e9d77133c4d4e1b9982df"
+    },
+    {
+      "name": "chunk-0041.zip",
+      "size": 100595169,
+      "sha256": "9183e8af37fcf649fda2fa779fe0faed84135235c71a20b9e25297989c2dd96c"
+    },
+    {
+      "name": "chunk-0042.zip",
+      "size": 100839091,
+      "sha256": "d64c8b5581526478f5fd19a8fb675a021aabbbfc1d03cbf0e11444add365adcc"
+    },
+    {
+      "name": "chunk-0043.zip",
+      "size": 100909893,
+      "sha256": "2344929df44282ff722d43d6281a86e83aec8d0d814885444805496eb8924df3"
+    },
+    {
+      "name": "chunk-0044.zip",
+      "size": 100878710,
+      "sha256": "17bcdf0dd6fd67e2002dfbc42fcf0480fbbb4de571c8bc8fc59615f9e64ad3bb"
+    },
+    {
+      "name": "chunk-0045.zip",
+      "size": 101016875,
+      "sha256": "9fea44310f5aa7e833697534f1ff7da5f8bab6ba6d57560e55301e2bd9c387ec"
+    },
+    {
+      "name": "chunk-0046.zip",
+      "size": 100036390,
+      "sha256": "67f92129ee08c438a72b4019c35afffa040e723c3ceb02b0355e478c59aae3a9"
+    },
+    {
+      "name": "chunk-0047.zip",
+      "size": 100659755,
+      "sha256": "bd776daafe92681b7cf7f3e25b0314106ba636cfcc4cc0b63e70faad1b8d755b"
+    },
+    {
+      "name": "chunk-0048.zip",
+      "size": 100653715,
+      "sha256": "a36ef4567ccb14a061de1ecd3349548e8040c42358d0692a566e169382f1d439"
+    },
+    {
+      "name": "chunk-0049.zip",
+      "size": 101002971,
+      "sha256": "9acf3187f97aee878011098d10c3bd0ef774a5b5d40ece12ac45d2e924ab7945"
+    },
+    {
+      "name": "chunk-0050.zip",
+      "size": 100309478,
+      "sha256": "6d78f6c2a464d90441e11d88115d005e73c9952fd7810dea0c398362e2db82e8"
+    },
+    {
+      "name": "chunk-0051.zip",
+      "size": 100735871,
+      "sha256": "5fc8076fb37bfbe6ea1c77554cdf279a1296d15d3a4b177b745e1be165cefd9a"
+    },
+    {
+      "name": "chunk-0052.zip",
+      "size": 100048118,
+      "sha256": "68e3d0f9e610fa5b7b384bbe977e11686ac49ebe282909e100b96601b1794acd"
+    },
+    {
+      "name": "chunk-0053.zip",
+      "size": 100753636,
+      "sha256": "0d8116de006fe58312f86f0a9483a271579e0801d22c825642eb760a838e6bdc"
+    },
+    {
+      "name": "chunk-0054.zip",
+      "size": 100914591,
+      "sha256": "d9460b3205b823ba126d8f258e784cd5cc8b7b125acaefa96ff825dd45d61a02"
+    },
+    {
+      "name": "chunk-0055.zip",
+      "size": 100733419,
+      "sha256": "c802332cd6f5618d73f53549744e467ff3a11c1f81d9bd20197117de1beaa76a"
+    },
+    {
+      "name": "chunk-0056.zip",
+      "size": 100491960,
+      "sha256": "7109316ecd7c952d2294a88cd02c5aa552b71efe77f12be0890f9689b8490a3f"
+    },
+    {
+      "name": "chunk-0057.zip",
+      "size": 100977997,
+      "sha256": "024d41b657e843798eb4afbc6352475432cd63a1807ac1adceb5adfb34175183"
+    },
+    {
+      "name": "chunk-0058.zip",
+      "size": 99894613,
+      "sha256": "e9e2eb267b0641fd79cc4cedf13a4157a676f280bd668de22e31eb8920abf01e"
+    },
+    {
+      "name": "chunk-0059.zip",
+      "size": 99426252,
+      "sha256": "c9683dbbf8c59b134169c7094e5706009cda1810751238a2a7d1002859de4132"
+    },
+    {
+      "name": "chunk-0060.zip",
+      "size": 100875123,
+      "sha256": "c7a0171fd61a7804a3ed7cc4e79aa057862898eed5ecb4614dab6ed05a4f0a8f"
+    },
+    {
+      "name": "chunk-0061.zip",
+      "size": 100075020,
+      "sha256": "3981d9feee662332da0c6283e007f4f377cffa115ae1b02023f750783565c959"
+    },
+    {
+      "name": "chunk-0062.zip",
+      "size": 100299129,
+      "sha256": "97d0ea8e4ccb9fb54315db9c618d883137a6291262d767dddca971624d01f5e0"
+    },
+    {
+      "name": "chunk-0063.zip",
+      "size": 93462921,
+      "sha256": "4cd8ea721aa5183ace8b58a545351b8ad0665869e6c6142f94c40e40c763b084"
+    },
+    {
+      "name": "chunk-0064.zip",
+      "size": 99556629,
+      "sha256": "c534918f859c6944f495c304eb1c0935db2bfbde3697badeec7a0ed41026aea0"
+    },
+    {
+      "name": "chunk-0065.zip",
+      "size": 100136060,
+      "sha256": "1035de640fd6330846eb592df1267fc5e02a97fd11ae78c46bb44725506aa0f5"
+    },
+    {
+      "name": "chunk-0066.zip",
+      "size": 100761293,
+      "sha256": "da7d4183832acd9bf728c3748450fd582266cc17df53e9bdb9bf85ebfdd95840"
+    },
+    {
+      "name": "chunk-0067.zip",
+      "size": 100939358,
+      "sha256": "ba86a72885b98e32b89237c9fd3d3b523a455799d0a350ae93f1171542854f0f"
+    },
+    {
+      "name": "chunk-0068.zip",
+      "size": 99719571,
+      "sha256": "691450a5be09a02dd7c127e6c8acf43754eace16a2ba3fcb761de25a95a9c357"
+    },
+    {
+      "name": "chunk-0069.zip",
+      "size": 98831220,
+      "sha256": "80221849e5eaaf108005684161b08bc5e4cac314d2f07e222f25c1a35559f414"
+    },
+    {
+      "name": "chunk-0070.zip",
+      "size": 100513669,
+      "sha256": "1b6afa5611891ce629586060be86caa05127a0ef96872fbc6a6b8dd1ddd19924"
+    },
+    {
+      "name": "chunk-0071.zip",
+      "size": 100580927,
+      "sha256": "e17965c14fbeaad734f7ea7584db1aaa1a3e19c60efb0600cf5a228187720e70"
+    },
+    {
+      "name": "chunk-0072.zip",
+      "size": 100193435,
+      "sha256": "0c5aa11ae0f5d4b089e5fa8f7972455d3ce55406af5802a300ee8dd225b6457e"
+    },
+    {
+      "name": "chunk-0073.zip",
+      "size": 100443836,
+      "sha256": "0416bcdcc78acda5299c929cec131b1000faac3772969ba7f08bf129114f4938"
+    },
+    {
+      "name": "chunk-0074.zip",
+      "size": 101018610,
+      "sha256": "880b3b18fd69c26d8a2a4a9eacc0d5d5b9fe7b36ed630ac76b324ae920fa2155"
+    },
+    {
+      "name": "chunk-0075.zip",
+      "size": 100915858,
+      "sha256": "a82e304d28cd34f6a723a52b71d099af824eb15858c4ed29aaf97b406563b7e5"
+    },
+    {
+      "name": "chunk-0076.zip",
+      "size": 100832165,
+      "sha256": "2a7f539ec99a0be47d276d327e0e2c2742d5feef0df5c31efaa098e2ba063617"
+    },
+    {
+      "name": "chunk-0077.zip",
+      "size": 100179306,
+      "sha256": "ee399c8c4be5a590fd21f7d2cf5ba58932dc3b130360e8a2d9fa269df2ed58b8"
+    },
+    {
+      "name": "chunk-0078.zip",
+      "size": 100765329,
+      "sha256": "d942fb2dded4d3c2912414c363a9a30ac8a3dc8381a05f31594d2272dcb8239a"
+    },
+    {
+      "name": "chunk-0079.zip",
+      "size": 99323971,
+      "sha256": "897bb58df67bc4ae6ff6a50b145d4e000642e4fd4934d9a2ab62b3bbe8a1aefc"
+    },
+    {
+      "name": "chunk-0080.zip",
+      "size": 100770275,
+      "sha256": "3355e15d5e1694578725910dfb93daacc25da0db61d6ee02d6f43aa820dc01b8"
+    },
+    {
+      "name": "chunk-0081.zip",
+      "size": 100822512,
+      "sha256": "ab4dfe1abcd2a59e38258fe778e6f1dba532f76c8064a50e84707e25a893c6b9"
+    },
+    {
+      "name": "chunk-0082.zip",
+      "size": 100996476,
+      "sha256": "4ee9868d020fa586689098e2a198f5cddb3405e0cc545331faed841e4ca6b92b"
+    },
+    {
+      "name": "chunk-0083.zip",
+      "size": 101004712,
+      "sha256": "b9f48ed8e9277a64ad8cf36a4c4faf7516533a96df4669b81929978b76bf79b8"
+    },
+    {
+      "name": "chunk-0084.zip",
+      "size": 100042476,
+      "sha256": "1a1f04482794c247987f9f92d940f28814fa834bce1c58385b0f1e4a1325e5aa"
+    },
+    {
+      "name": "chunk-0085.zip",
+      "size": 98974439,
+      "sha256": "180b4c1507dcafa879f3fcf49f8509b24760adcaa5ba5b1fccbcadecbab30ee6"
+    },
+    {
+      "name": "chunk-0086.zip",
+      "size": 100887207,
+      "sha256": "de78d2707a187b51705f19d9e7d9f042d3b9049cd29973c77c993939c76230e5"
+    },
+    {
+      "name": "chunk-0087.zip",
+      "size": 100591279,
+      "sha256": "31b96c7c843c4dc78c6d56358646d029babfdf36b394cd067930171c66c7609d"
+    },
+    {
+      "name": "chunk-0088.zip",
+      "size": 101020459,
+      "sha256": "b115194d7874252695d9891fcb1aa33333b4a731025703f7e85229debe030bf4"
+    },
+    {
+      "name": "chunk-0089.zip",
+      "size": 100530734,
+      "sha256": "77a7c348d448520baefc35af502b5c575c66ab6d35d2a303dd619cf16043194a"
+    },
+    {
+      "name": "chunk-0090.zip",
+      "size": 99627568,
+      "sha256": "27dad0cd986f42bb80e46098b3aa68d5164a7c4ff8f908a59856df0c81516f3e"
+    },
+    {
+      "name": "chunk-0091.zip",
+      "size": 100759770,
+      "sha256": "5ac98ff5d846638fd2357b541e7f4e801ee6d633203d5ddee9055d34a65ed6ea"
+    },
+    {
+      "name": "chunk-0092.zip",
+      "size": 101034529,
+      "sha256": "3aae46c88074dfc3e0de978905a18cdd562dd66d1ff40bef595b889004e4ac38"
+    },
+    {
+      "name": "chunk-0093.zip",
+      "size": 100981762,
+      "sha256": "6af753e720225e5c7831ea2b274c056b300f3e468ea3a53864bbb03e450c278b"
+    },
+    {
+      "name": "chunk-0094.zip",
+      "size": 101058030,
+      "sha256": "c63c4b21b5d4e6c03539f483fc796675294dda491701d454db495b0a0734a33f"
+    },
+    {
+      "name": "chunk-0095.zip",
+      "size": 100942078,
+      "sha256": "05b010ad38efec44d51e50b084e6241c8cc92db64138767196b1776b4e6364a7"
+    },
+    {
+      "name": "chunk-0096.zip",
+      "size": 99876864,
+      "sha256": "03ac9824761be2382245d7bbfdfb3320f3085bb659d63c41514bdba0f19cb7ee"
+    },
+    {
+      "name": "chunk-0097.zip",
+      "size": 100270339,
+      "sha256": "dbabe87acd8731a1c62e4564d3152fe1fe0fba26f586d2b17be0593c70d27ca9"
+    },
+    {
+      "name": "chunk-0098.zip",
+      "size": 97270405,
+      "sha256": "2fe010c4edd984106ce8d49d5dfbd22a41bde8f42764e3a7284aca1b731aa2e0"
+    },
+    {
+      "name": "chunk-0099.zip",
+      "size": 100044236,
+      "sha256": "0aa9d16eea4de6af7673e65f8fe91e45d054a482af6bdff1ab60387c3069428c"
+    },
+    {
+      "name": "chunk-0100.zip",
+      "size": 100823671,
+      "sha256": "703ea9350d2f37731012b1012ccefab107f6c68c66e5a34a73d28dd65fcd0249"
+    },
+    {
+      "name": "chunk-0101.zip",
+      "size": 100920239,
+      "sha256": "38d7c37975d9f4a809d41e517f534138bc4274edd1f5a75df8d6a7b91218236e"
+    },
+    {
+      "name": "chunk-0102.zip",
+      "size": 66256253,
+      "sha256": "0a7e3f1d401b50cd71bd4c61718e2e523710e576da9ecd19e667e58ceee20720"
+    }
+  ],
+  "clientIp": "*"
+}

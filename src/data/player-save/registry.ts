@@ -49,6 +49,7 @@ export const PLAYER_SAVE_TABLES: readonly PlayerSaveTableDefinition[] = [
     table("players_party_member_co_clears", "missions", 3),
     table("players_party_race_clears", "missions", 3),
     table("players_mission_battle_counters", "missions", 5),
+    table("players_mission_counters", "missions", 29),
     table("players_degree_battle_stats", "missions", 8),
     table("players_degrees", "missions", 5),
     table("players_periodic_snapshots", "missions", 3),
@@ -91,6 +92,8 @@ export const PLAYER_SAVE_TABLES: readonly PlayerSaveTableDefinition[] = [
 ]
 
 export const PLAYER_SAVE_EXCLUDED_TABLES: readonly PlayerSaveExcludedTableDefinition[] = [
+    { name: "recent_quest_parties", reason: "serverOperation" },
+    { name: "published_parties", reason: "serverOperation" },
     { name: "players_active_quests", reason: "activeQuest" },
     { name: "players_gift_redemptions", reason: "serverOperation" },
     { name: "players_follows", reason: "serverOperation" },

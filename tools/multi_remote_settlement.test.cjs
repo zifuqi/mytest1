@@ -1117,6 +1117,7 @@ function observableSettlementState(db, playerId) {
         inventory: select("SELECT * FROM players_items WHERE player_id = ? ORDER BY id", playerId),
         rewardHistory: select("SELECT * FROM players_receive_history WHERE player_id = ? ORDER BY id", playerId),
         questHistory: select("SELECT * FROM players_quest_progress WHERE player_id = ? ORDER BY section, quest_id", playerId),
+        recentParties: select("SELECT * FROM recent_quest_parties WHERE player_id = ? ORDER BY id", playerId),
         missionFacts: select("SELECT * FROM players_mission_battle_counters WHERE player_id = ?", playerId),
         missions: select("SELECT * FROM players_category_missions WHERE player_id = ? ORDER BY category, id", playerId),
         mails: select("SELECT * FROM players_mails WHERE player_id = ? ORDER BY id", playerId),
@@ -1646,6 +1647,8 @@ test("production /finish consumes one SQLite settlement after both requests pass
         assert.equal(settledOnce.activeQuest.length, 0)
         assert.equal(settledOnce.questHistory.length, 1)
         assert.equal(settledOnce.questHistory[0].multi_clear_count, 1)
+        assert.equal(settledOnce.recentParties.length, 1)
+        assert.equal(JSON.parse(settledOnce.recentParties[0].party_json).character_id_1, 1)
         assert.equal(settledOnce.missionFacts[0].multi_clear_count, 1)
         assert.ok(settledOnce.inventory.length > 0, "真实奖励必须落入库存")
 
@@ -1726,6 +1729,7 @@ test("production /finish retries local rollback against the retained Hub fact", 
             payload: finishPayload(host.viewerId, playId),
         })
         assert.equal(retried.statusCode, 200, retried.body)
+        assert.equal(observableSettlementState(home.db, home.playerId).recentParties.length, 1)
         assert.equal(getPlayerActiveQuestSync(home.playerId), null)
         assert.equal((await getBattleStatus({
             participant: host,

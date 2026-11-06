@@ -41,6 +41,7 @@ import { assertValidGachaSaveState } from "../../lib/gacha-owner/save-validation
 const DOMAIN_NAMES: readonly PlayerSaveDomainName[] = ["core", "missions", "events", "economy", "mailbox"]
 const EXCLUDED_DOMAINS = ["account", "session", "serverConfig", "activeQuest"] as const
 const LEGACY_V1_UNMANAGED_TABLES = new Set([
+    "players_mission_counters",
     "players_tutorial_step_receipts",
     "players_box_gacha",
     "players_box_gacha_drawn_rewards",
@@ -173,7 +174,18 @@ function assertRegistryMatchesDatabase(database: Database): ReadonlyMap<string, 
         ...PLAYER_SAVE_EXCLUDED_TABLES.map(definition => definition.name),
     ].sort()
     if (new Set(classified).size !== classified.length || discovered.join("\n") !== classified.join("\n")) {
-        throw new Error("Player save table registry does not match the current database schema")
+        // wf-save-migration: report actual registry differences
+        const discoveredSet = new Set(discovered)
+        const classifiedSet = new Set(classified)
+        const unregistered = discovered.filter(name => !classifiedSet.has(name))
+        const unavailable = classified.filter(name => !discoveredSet.has(name))
+        const duplicates = [...new Set(classified.filter((name, index) => classified.indexOf(name) !== index))]
+        const details = [
+            unregistered.length ? `未登记的玩家表：${unregistered.join(", ")}` : "",
+            unavailable.length ? `已登记但数据库未识别的表：${unavailable.join(", ")}` : "",
+            duplicates.length ? `重复登记：${duplicates.join(", ")}` : "",
+        ].filter(Boolean).join("；")
+        throw new Error(`存档表清单与数据库不一致：${details}`)
     }
     return inspection.metadata
 }

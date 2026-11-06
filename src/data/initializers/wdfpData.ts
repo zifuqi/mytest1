@@ -13,6 +13,7 @@ import { initializeServerNewsSchemaSync } from "../schema/server-news";
 import { initializeServerGiftsSchemaSync } from "../schema/server-gifts";
 import { initializePlayerFollowsSchemaSync } from "../schema/player-follows";
 import { initializePublishedPartiesSchemaSync } from "../schema/published-parties";
+import { initializeRecentQuestPartiesSchemaSync } from "../schema/recent-quest-parties";
 import { initializeRankingRewardClaimsSchemaSync } from "../schema/ranking-reward-claims";
 import { pruneSpecialEventPartyGroupsSync } from "../../lib/party-group-persistence";
 import { getRealNow } from "../../runtime/time/game-time";
@@ -175,6 +176,7 @@ export default function init(
     )`).run();
 
     initializePublishedPartiesSchemaSync(database)
+    initializeRecentQuestPartiesSchemaSync(database)
 
     // migration: add tutorial_gacha_character_id to existing tables
     ensureSchemaColumn(database, "players.tutorial_gacha_character_id")

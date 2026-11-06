@@ -1,3 +1,4 @@
+import PlayerRankEditor from "../components/PlayerRankEditor"
 import { useState } from "react"
 import type { ReactNode } from "react"
 import { Card, Table, Button, Space, InputNumber, Popconfirm, message, Tag, Tabs, Spin, Typography, Switch, Input, Upload } from "antd"
@@ -50,7 +51,6 @@ interface Lookups {
 // 为重构前页面既有编辑字段，修复轮恢复，仅补配同款星描边图标；
 // 羁绊证原也在列，2026-09-29 经维护者明确指示移除，勿恢复）
 const resourceFields: { key: string; label: string; icon?: ReactNode; lvBadge?: boolean }[] = [
-    { key: "rankPoint", label: "Rank", lvBadge: true },
     { key: "expPool", label: "经验池", icon: <path d="M12 3c3.5 4.5 7 8.2 7 11.2a7 7 0 0 1-14 0c0-3 3.5-6.7 7-11.2z" /> },
     { key: "freeVmoney", label: "星导石(免费)", icon: <circle cx="12" cy="12" r="8.5" /> },
     { key: "vmoney", label: "星导石(付费)", icon: <circle cx="12" cy="12" r="8.5" /> },
@@ -554,6 +554,8 @@ export default function PlayerDetail() {
                     </div>
                 </div>
             </div>
+
+            <PlayerRankEditor key={pid} playerId={pid} rankPoint={player.rankPoint} />
 
             <Card title="资源编辑" className="admin-dash-card admin-res-card"
                 extra={<span className="admin-card-note">每项修改后点字段右侧 ⟳ 保存，逐项生效</span>}>

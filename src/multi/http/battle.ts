@@ -300,7 +300,7 @@ export function registerBattleRoutes(fastify: FastifyInstance, context: MultiHtt
     });
 
     // ---- finish ----
-    fastify.post("/finish", async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.post("/finish", { bodyLimit: 16777216 }, async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request.body as MultiFinishBody;
         const viewerId = body.viewer_id;
         console.log("[MULTI] finish received");
